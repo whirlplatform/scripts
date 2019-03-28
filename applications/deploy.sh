@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 echo 'Deploy started'
-scp -r . ftp://jelastic-ftp:$JELASTIC_FTP_PASSWORD@$JELASTIC_TOMCAT_IP:$JELASTIC_APPLICATION_PATH
+find . ! -path './.*' ! -path './scripts*' -type f -exec curl --user $JELASTIC_FTP_USER:$JELASTIC_FTP_PASSWORD --ftp-create-dirs -T {} ftp://$JELASTIC_TOMCAT_IP/$JELASTIC_APPLICATION_PATH/{} \;
 echo 'Deploying complete'
