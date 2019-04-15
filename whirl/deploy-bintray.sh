@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-cd ~/build/
-
 PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
 echo 'Project version: ' $PROJECT_VERSION
 
