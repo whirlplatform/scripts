@@ -8,5 +8,5 @@ curl -v -T ~/build/whirl-app/whirl-app-server/target/whirl-app-server-$PROJECT_V
 echo 'Bintray: Application deploy completed'
 
 echo 'Bintray: Editor deploying...'
-curl -v -T ~/build/whirl-editor/whirl-editor-server/target/whirl-editor-server-$PROJECT_VERSION.war -u$BINTRAY_USER:$BINTRAY_API_KEY https://api.bintray.com/content/whirlplatform/maven/whirl/$PROJECT_VERSION/whirl-app-$PROJECT_VERSION.war
+curl -v -T ~/build/whirl-editor/whirl-editor-server/target/whirl-editor-server-$PROJECT_VERSION.war -u$BINTRAY_USER:$BINTRAY_API_KEY https://api.bintray.com/content/whirlplatform/maven/whirl/$PROJECT_VERSION/whirl-editor-$PROJECT_VERSION.war
 echo 'Bintray: Editor deploy completed'
