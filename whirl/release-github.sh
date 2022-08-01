@@ -68,7 +68,8 @@ upload_release_file() {
 
 # get repository name and owner
 GITHUB_REPO_REMOTE=$(git config --get remote.origin.url)
-GITHUB_REPO_OWNER=$(grep -oP ':\K.*?(?=/)' <<< $GITHUB_REPO_REMOTE)
+# owner from git@ like or https:// like ursl
+GITHUB_REPO_OWNER=$(grep -oP '(?<=github.com/).*(?=/)' <<< $GITHUB_REPO_REMOTE ; if [ -z $? ]; then $1; else grep -oP ':\K.*?(?=/)' <<< $GITHUB_REPO_REMOTE; fi)
 GITHUB_REPO_NAME=$(basename -s .git $GITHUB_REPO_REMOTE)
 
 # get project version
