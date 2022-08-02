@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-$GITHUB_ACCESS_TOKEN
-
 # create a new release
 # user: user's name
 # repo: the repo's name
@@ -65,6 +63,7 @@ upload_release_file() {
     fi
 }
 
+cd ~/build/
 
 # get repository name and owner
 GITHUB_REPO_REMOTE=$(git config --get remote.origin.url)
