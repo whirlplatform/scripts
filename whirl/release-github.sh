@@ -77,9 +77,9 @@ TAG="v$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)"
 create_release $GITHUB_REPO_OWNER $GITHUB_REPO_NAME $GITHUB_ACCESS_TOKEN $TAG $SCRUTINIZER_BRANCH
 
 APPLICATION_WAR_NAME="$(cd whirl-app/whirl-app-server; mvn help:evaluate -Dexpression=project.build.finalName -q -DforceStdout).war"
-APPLICATION_FILE="whirl-app/whirl-app-server/$(cd whirl-app/whirl-app-server; mvn help:evaluate -Dexpression=project.build.directory -q -DforceStdout)/$APPLICATION_WAR_NAME"
+APPLICATION_FILE="$(cd whirl-app/whirl-app-server; mvn help:evaluate -Dexpression=project.build.directory -q -DforceStdout)/$APPLICATION_WAR_NAME"
 upload_release_file $GITHUB_ACCESS_TOKEN $APPLICATION_FILE "whirl-application.war"
 
 EDITOR_WAR_NAME="$(cd whirl-editor/whirl-editor-server; mvn help:evaluate -Dexpression=project.build.finalName -q -DforceStdout).war"
-EDITOR_FILE="whirl-editor/whirl-editor-server/$(cd whirl-editor/whirl-editor-server; mvn help:evaluate -Dexpression=project.build.directory -q -DforceStdout)/$APPLICATION_WAR_NAME"
+EDITOR_FILE="$(cd whirl-editor/whirl-editor-server; mvn help:evaluate -Dexpression=project.build.directory -q -DforceStdout)/$APPLICATION_WAR_NAME"
 upload_release_file $GITHUB_ACCESS_TOKEN $EDITOR_FILE "whirl-editor.war"
