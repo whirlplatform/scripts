@@ -25,9 +25,7 @@ create_release() {
     else
         echo "create release failed with code '$http_code':"
         cat release.json
-        echo "command:"
-        echo $command
-        return 1
+        exit 1
     fi
 }
 
@@ -57,8 +55,6 @@ upload_release_file() {
     else
         echo "upload failed with code '$http_code':"
         cat "upload-$name.json"
-        echo "command:"
-        echo $command
         exit 1
     fi
 }
@@ -81,5 +77,5 @@ APPLICATION_FILE="$(cd whirl-app/whirl-app-server; mvn help:evaluate -Dexpressio
 upload_release_file $GITHUB_ACCESS_TOKEN $APPLICATION_FILE "whirl-application.war"
 
 EDITOR_WAR_NAME="$(cd whirl-editor/whirl-editor-server; mvn help:evaluate -Dexpression=project.build.finalName -q -DforceStdout).war"
-EDITOR_FILE="$(cd whirl-editor/whirl-editor-server; mvn help:evaluate -Dexpression=project.build.directory -q -DforceStdout)/$APPLICATION_WAR_NAME"
+EDITOR_FILE="$(cd whirl-editor/whirl-editor-server; mvn help:evaluate -Dexpression=project.build.directory -q -DforceStdout)/$EDITOR_WAR_NAME"
 upload_release_file $GITHUB_ACCESS_TOKEN $EDITOR_FILE "whirl-editor.war"
