@@ -67,9 +67,6 @@ GITHUB_REPO_REMOTE=$(git config --get remote.origin.url)
 GITHUB_REPO_OWNER=$(grep -oP '(?<=github.com/).*(?=/)' <<< $GITHUB_REPO_REMOTE ; if [ -z $? ]; then $1; else grep -oP ':\K.*?(?=/)' <<< $GITHUB_REPO_REMOTE; fi)
 GITHUB_REPO_NAME=$(basename -s .git $GITHUB_REPO_REMOTE)
 
-# get project version
-TAG="v$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)"
-
 create_release $GITHUB_REPO_OWNER $GITHUB_REPO_NAME $GITHUB_ACCESS_TOKEN $TAG $SCRUTINIZER_BRANCH
 
 APPLICATION_WAR_NAME="$(cd whirl-app/whirl-app-server; mvn help:evaluate -Dexpression=project.build.finalName -q -DforceStdout).war"
