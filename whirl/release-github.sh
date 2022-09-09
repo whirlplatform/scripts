@@ -12,12 +12,15 @@ create_release() {
     tag=$4
     branch=$5
 
+    echo "--data '{\"tag_name\": \"'${tag}'\", \"target_commitish\": \"'${branch}'\", \"name\": \"'${tag}'\", \"body\": \"Release of '${tag}'\", \"draft\": false, \"prerelease\": false}'"
+
     command="curl -s -o release.json -w '%{http_code}' \
          --request POST \
          --header 'authorization: Bearer ${token}' \
          --header 'content-type: application/json' \
          --data '{\"tag_name\": \"'${tag}'\", \"target_commitish\": \"'${branch}'\", \"name\": \"'${tag}'\", \"body\": \"Release of '${tag}'\", \"draft\": false, \"prerelease\": false}' \
          https://api.github.com/repos/$user/$repo/releases"
+
     http_code=`eval $command`
     if [ $http_code == "201" ]; then
         echo "created release:"
