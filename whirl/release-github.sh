@@ -24,7 +24,6 @@ create_release() {
     http_code=`eval $command`
     if [ $http_code == "201" ]; then
         echo "created release:"
-        cat release.json
     else
         echo "create release failed with code '$http_code':"
         cat release.json
