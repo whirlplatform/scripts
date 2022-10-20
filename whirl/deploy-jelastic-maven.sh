@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # This script deploys the application and editor to the Jelastic cloud with Jelastic Maven plugin.
-# It deploys the application and editor using project's packaged war files.
+# Script deploys the application and editor using project's packaged war files.
 #
 # Environment variables:
 #   JELASTIC_HOSTER_API - Jelastic hoster API URL
@@ -12,9 +12,17 @@
 #   ENV_CONTEXT - context on the server to deploy to
 
 JELASTIC_ENVIRONMENT="${ENV_PREFIX}-${ENV_TYPE}"
+if [ -z "$ENV_CONTEXT" ]
+then
+  ENV_CONTEXT_APP=ROOT
+  ENV_CONTEXT_EDITOR=editor
+else
+  ENV_CONTEXT_APP=$ENV_CONTEXT
+  ENV_CONTEXT_EDITOR=$ENV_CONTEXT-editor
+fi
 
 echo 'Jelastic: Application deploying...'
-cd ~/build/whirl-app/whirl-app-server && mvn jelastic:deploy -P deploy-jelastic -Djelastic.hoster_api=$JELASTIC_HOSTER_API -Djelastic.login=$JELASTIC_LOGIN -Djelastic.password=$JELASTIC_PASSWORD -Djelastic.environment=$JELASTIC_ENVIRONMENT  -Djelastic.context=${ENV_CONTEXT}
+cd ~/build/whirl-app/whirl-app-server && mvn jelastic:deploy -P deploy-jelastic -Djelastic.hoster_api=$JELASTIC_HOSTER_API -Djelastic.login=$JELASTIC_LOGIN -Djelastic.password=$JELASTIC_PASSWORD -Djelastic.environment=$JELASTIC_ENVIRONMENT -Djelastic.context=${ENV_CONTEXT_APP}
 if [ $? -eq 0 ]
 then
   echo 'Jelastic: Application deployment completed'
@@ -24,7 +32,7 @@ else
 fi
 
 echo 'Jelastic: Editor deploying...'
-cd ~/build/whirl-editor/whirl-editor-server && mvn jelastic:deploy -P deploy-jelastic -Djelastic.hoster_api=$JELASTIC_HOSTER_API -Djelastic.login=$JELASTIC_LOGIN -Djelastic.password=$JELASTIC_PASSWORD -Djelastic.environment=$JELASTIC_ENVIRONMENT  -Djelastic.context="${ENV_CONTEXT}-editor"
+cd ~/build/whirl-editor/whirl-editor-server && mvn jelastic:deploy -P deploy-jelastic -Djelastic.hoster_api=$JELASTIC_HOSTER_API -Djelastic.login=$JELASTIC_LOGIN -Djelastic.password=$JELASTIC_PASSWORD -Djelastic.environment=$JELASTIC_ENVIRONMENT  -Djelastic.context=${ENV_CONTEXT_EDITOR}
 if [ $? -eq 0 ]
 then
   echo 'Jelastic: Editor deployment completed'
