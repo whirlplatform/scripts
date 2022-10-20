@@ -6,7 +6,6 @@
 #   JELASTIC_HOSTER_API - Jelastic hoster API URL
 #   JELASTIC_LOGIN - Jelastic user name
 #   JELASTIC_PASSWORD - Jelastic password
-#   TAG - version of the application to deploy
 #   ENV_PREFIX - prefix of the environment name
 #   ENV_TYPE - type of the environment to deploy to. Possible values: demo, develop
 #   ENV_CONTEXT - context on the server to deploy to
